@@ -1,8 +1,9 @@
 # coding=UTF-8
+import sys, yaml
 from jpype import *
-import yaml
-import os
 from os.path import dirname, abspath
+sys.path.append('./lib/')
+import build
 
 class NLPTool:
     modulePath = abspath(dirname(__file__))
@@ -10,17 +11,16 @@ class NLPTool:
     javaClassPath = hanLPLibPath+'hanlp-1.3.2.jar'+':'+hanLPLibPath
     startJVM(getDefaultJVMPath(), '-Djava.class.path='+javaClassPath, '-Xms1g', '-Xmx1g')
 
-    """docstring for hanlp"""
     def __init__(self):
-        # Parameters 
+        build.properties()
         self._innerConvertEnable = True
+        
         self.HanLP = JClass('com.hankcs.hanlp.HanLP')
-        
         self.CustomDictionary = JClass('com.hankcs.hanlp.dictionary.CustomDictionary')
-
         self.modulePath = abspath(dirname(__file__))
-        
+
         self._loadDictionary()
+        
 
     def _innerConvert(self, inputString, mode):
         if self._innerConvertEnable:
@@ -589,6 +589,3 @@ class NLPTool:
             return {'response': result}
         else:
             return {'error': { 'content': '長度不得為零'}}
-
-
-
