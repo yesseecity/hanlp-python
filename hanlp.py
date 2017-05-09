@@ -2,7 +2,7 @@
 import sys, yaml
 from jpype import *
 from os.path import dirname, abspath
-sys.path.append('./lib/')
+sys.path.append(abspath(dirname(__file__))+'/lib/')
 import build
 
 class NLPTool:
