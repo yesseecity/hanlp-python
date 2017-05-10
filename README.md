@@ -22,8 +22,17 @@ pip3 install pyyaml
 ubuntu:16.10 安裝指令如下
 
 ```
-apt-get install software-properties-common \
-    && add-apt-repository ppa:webupd8team/java -y \
-    && apt-get update \
-    && apt-get install oracle-java8-installer -y
+apt-get install software-properties-common 
+add-apt-repository ppa:webupd8team/java -y 
+apt-get update 
+apt-get install oracle-java8-installer -y
+```
+
+* 安裝 JPype1
+
+```
+wget https://pypi.python.org/packages/d2/c2/cda0e4ae97037ace419704b4ebb7584ed73ef420137ff2b79c64e1682c43/JPype1-0.6.2.tar.gz
+tar -xvzf JPype1-0.6.2.tar.gz
+cd JPype1-0.6.2
+python3 setup.py install
 ```
