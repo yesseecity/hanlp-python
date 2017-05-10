@@ -14,15 +14,16 @@ This README would normally document whatever steps are necessary to get your app
 * 用 git clone --depth 1 複製此專案
 
 * 安裝 python3 及相關 pip套件
->```
+```
 pip3 install pyyaml
 ```
 
 * 安裝 java:8
 ubuntu:16.10 安裝指令如下
->```
+
+```
 apt-get install software-properties-common \
     && add-apt-repository ppa:webupd8team/java -y \
     && apt-get update \
-    && apt-get install oracle-java8-installer -y \
+    && apt-get install oracle-java8-installer -y
 ```
