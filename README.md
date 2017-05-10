@@ -9,6 +9,13 @@ This README would normally document whatever steps are necessary to get your app
 
 ### How do I get set up? ###
 
+* 快速建置環境
+
+```
+docker build -t cosmos:1.0.0 ./
+```
+- - - -
+
 * 用 git clone --depth 1 複製此專案
 
 * 安裝 python3 及相關 pip套件
