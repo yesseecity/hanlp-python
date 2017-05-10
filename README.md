@@ -8,7 +8,7 @@ This README would normally document whatever steps are necessary to get your app
 
 
 ### How do I get set up? ###
-
+* 用 git clone --depth 1 複製此專案
 * 快速建置環境
 
 ```
