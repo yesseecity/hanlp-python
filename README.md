@@ -2,21 +2,18 @@
 
 This README would normally document whatever steps are necessary to get your application up and running.
 
-### What is this repository for? ###
+## What is this repository for? ##
 
 * hanLP為 [hankcs](https://github.com/hankcs/HanLP) 所開發的中文NLP，這邊用python改寫成 api 
 
 
-### How do I get set up? ###
-* 用 git clone --depth 1 複製此專案
-* 快速建置環境
+## How do I get set up? ##
 
-```
-docker build -t cosmos:1.0.0 ./
-```
-- - - -
+### 建置環境
 
 * 用 git clone --depth 1 複製此專案
+
+* 下載 data包 [按此下載](https://drive.google.com/open?id=0B3fyfPWHm1TceUExVld4enAxWE0) 並解壓至 lib/hanlp-1.3.2/data
 
 * 安裝 python3 及相關 pip套件
 ```

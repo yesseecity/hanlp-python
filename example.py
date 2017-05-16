@@ -11,4 +11,4 @@ params = {
     'enableCustomDic': True,
     'enablePOSTagging': True
 }
-print(nlpTool.segment(content, params))
+print(nlpTool.segment(content, params)['response'])
