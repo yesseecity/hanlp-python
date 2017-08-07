@@ -14,13 +14,10 @@ class NLPTool:
     def __init__(self):
         build.properties()
         self._innerConvertEnable = True
-        
         self.HanLP = JClass('com.hankcs.hanlp.HanLP')
         self.CustomDictionary = JClass('com.hankcs.hanlp.dictionary.CustomDictionary')
         self.modulePath = abspath(dirname(__file__))
-
         self._loadDictionary()
-        
 
     def _innerConvert(self, inputString, mode):
         if self._innerConvertEnable:
@@ -51,7 +48,7 @@ class NLPTool:
                 yamlFile = yaml.load(stream)
 
                 for key, value in yamlFile['dictionaries'].items():
-                    
+
                     if len(value['parentPosTag']) > 0:
                         parentPosTag = ' '+value['parentPosTag']
                     else:
@@ -207,7 +204,7 @@ class NLPTool:
         import operator, re
         sortedList = sorted(tempDict.items(), key=operator.itemgetter(1))
         sortedList.reverse()
-        
+
         for v in sortedList:
             tempString = re.sub(r'(\/)\w+', '', v[0])
             # print('tempString: ', tempString ,', ', len(tempString), ', ', v[0])
@@ -265,7 +262,7 @@ class NLPTool:
                 else:
                     break
             return {'response': keywordList}
-        else: 
+        else:
             return {'error': { 'content': '長度不得為零的字串'}}
     def addKeyword(self, keywords):
         if len(keywords) == 0 :
@@ -292,6 +289,50 @@ class NLPTool:
                 return {'error': result}
         else:
             return {'response': {'info': '所有的keyword已經存在於詞庫中'}}
+    def keywordPosition(self, content, keywords, inputParams=None):
+        if (len(keywords) == 0):
+            return {'error': {'keywords': 'keywords長度不得為0'}}
+        if (len(content) == 0):
+            return {'error': {'content': 'content長度不得為0'}}
+
+        mode = 'index' ## default mode
+        if (inputParams and 'mode' in inputParams):
+            if (inputParams['mode'] == 'index'):
+                mode = 'index'
+                print('mode: ', mode)
+            elif (inputParams['mode'] == 'percent'):
+                mode = 'percent'
+                print('mode: ', mode)
+            else:
+                return({'error': 'mode 只有 index, percent 兩種'})
+                # print({'error': 'mode 只有 index, percent 兩種'})
+        posDict = {}
+        for keyword in keywords:
+            if (len(keyword) == 0):
+                continue
+
+            posList = []
+            pos = content.rfind(keyword)
+            while (pos > 0):
+                posList.append(pos)
+                pos = content.rfind(keyword, 0, pos - 1)
+            posList.sort()
+
+            posDict[keyword] = posList
+
+
+        if mode == 'index':
+            return {'response': posDict}
+        if mode == 'percent':
+            contLen = len(content)
+            prcDict = {}
+            for keyword, posList in posDict:
+
+                prcList = []
+                for v in posList:
+                    prcList.append("{:4.2f}".format(v/contLen*100))
+                prcDict[keyword] = prcList
+            return {'response': prcDict}
 
     def nlpTokenizer(self, content, inputParams=None):
         params = {
@@ -481,7 +522,7 @@ class NLPTool:
 
         if not isinstance(compare, list) and len(compare) != 2:
             return {'error': { 'compare': '存放字串陣列 內含兩個要比對的字串, *必要欄位'}}
-        
+
         CoreSynonymDictionary = JClass('com.hankcs.hanlp.dictionary.CoreSynonymDictionary')
 
         distance = CoreSynonymDictionary.distance(self._innerConvert(compare[0], '2sc'), self._innerConvert(compare[1], '2sc'))
