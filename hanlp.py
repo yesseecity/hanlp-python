@@ -1,5 +1,6 @@
 # coding=UTF-8
 import sys, yaml
+import re
 from jpype import *
 from os.path import dirname, abspath
 sys.path.append(abspath(dirname(__file__))+'/lib/')
@@ -249,6 +250,7 @@ class NLPTool:
                 tempString = str(v).strip()
                 for tag in ['n', 'keyword', 'iguang']:
                     if len(tempString) > 0 and tempString.find('/'+tag) > 1:
+                        tempString = re.sub(r'(\/)\w+', '', tempString)
                         segmentList.append(tempString)
             
             segmentList.sort(key = lambda s: len(s), reverse=True)
