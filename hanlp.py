@@ -254,7 +254,7 @@ class NLPTool:
             params['enablePOSTagging'] = True
 
             segResult = self.segment(content, params)
-            segmentList = self._getListByTag(segResult['response'], ['n', 'keyword'])
+            segmentList = self._getListByTag(segResult['response'], ['n', 'keyword', 'iguang'])
             keywordList = []
             for i in range(0,params['num']):
                 if i < len(segmentList):
