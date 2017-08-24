@@ -9,3 +9,10 @@ dictionaries:
             - 'foods_ch.sc.dic'
             - 'foods_speceial_tw.sc.dic'
             - 'foods_tw.sc.dic'
+    iguang:
+        parentPosTag: ''
+        list:
+            - 'iguang_article_simplified.dic'
+            - 'iguang_logo_simplified.dic'
+            - 'iguang_store_simplified.dic'
+

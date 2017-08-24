@@ -12,3 +12,4 @@ params = {
     'enablePOSTagging': True
 }
 print(nlpTool.segment(content, params)['response'])
+
