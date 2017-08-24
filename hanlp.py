@@ -226,6 +226,42 @@ class NLPTool:
             print('Add keyword failed!')
             return ValueError
 
+    def keywordByLength(self, content, inputParams=None):
+        # 用StandardTokenizer 取出名詞並統計數量，取重複次數多的
+        params = {
+            'enablePOSTagging': True,
+            'convertMode': '2tw',
+            'num': 10
+        }
+        if inputParams:
+            params.update(inputParams)
+
+        if 'num' not in params:
+            return {'error': { 'num': '必須輸入 num，為keyword數量'}}
+
+        if isinstance(content, str) and len(content)>0:
+            params['enablePOSTagging'] = True
+
+            segResult = self.segment(content, params)
+            segmentList = []
+
+            for v in segResult['response']:
+                tempString = str(v).strip()
+                for tag in ['n', 'keyword', 'iguang']:
+                    if len(tempString) > 0 and tempString.find('/'+tag) > 1:
+                        segmentList.append(tempString)
+            
+            segmentList.sort(key = lambda s: len(s), reverse=True)
+            keywordList = []
+            for i in range(0,params['num']):
+                if i < len(segmentList):
+                    keywordList.append(self._innerConvert(segmentList[i], params['convertMode']))
+                else:
+                    break
+            return {'response': keywordList}
+        else:
+            return {'error': { 'content': '長度不得為零的字串'}}
+
     def keyword(self, content, inputParams=None):
         '''
             # hanLP 原生 keyword
