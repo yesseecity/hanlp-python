@@ -227,7 +227,7 @@ class NLPTool:
             return ValueError
 
     def keywordByLength(self, content, inputParams=None):
-        # 用StandardTokenizer 取出名詞並統計數量，取重複次數多的
+        # 用StandardTokenizer 取出名詞，字數多到少排序，通常字數越多越重要
         params = {
             'enablePOSTagging': True,
             'convertMode': '2tw',
